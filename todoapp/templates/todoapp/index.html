@@ -102,3 +102,16 @@
     </script>
 </body>
 </html>
+
+<h1>My Tasks</h1>
+<ul>
+    {% for task in tasks %}
+        <li>{{ task.description }} <a href="{% url 'delete_task' task.id %}">削除</a></li>
+    {% endfor %}
+</ul>
+
+<form method="POST" action="{% url 'add_task' %}">
+    {% csrf_token %}
+    <input type="text" name="description" placeholder="新しいタスクを入力" required>
+    <button type="submit">追加</button>
+</form>

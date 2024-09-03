@@ -15,3 +15,15 @@ def index(request):
     # タスクのリストを取得してコンテキストに渡す
     tasks = Task.objects.all()  # タスクがまだなければこの行は削除してもOKです
     return render(request, 'todoapp/index.html')
+
+def add_task(request):
+    if request.method == 'POST':
+        task_description = request.POST.get('description')
+        Task.objects.create(description=task_description)
+        return redirect('index')  # indexビューにリダイレクト
+    return render(request, 'todoapp/index.html')
+
+def delete_task(request, task_id):
+    task = Task.objects.get(id=task_id)
+    task.delete()
+    return redirect('index') 
