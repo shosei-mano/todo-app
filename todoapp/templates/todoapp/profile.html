@@ -1,0 +1,16 @@
+{% extends 'todoapp/base2.html' %}
+
+{% block title %}プロフィール{% endblock %}
+
+{% block content %}
+<h1>プロフィールページ</h1>
+
+<p>ユーザー名: {{ user.username }}</p>
+<p>メールアドレス: {{ user.email }}</p>
+<p>フルネーム: {{ user.first_name }} {{ user.last_name }}</p>
+
+
+<!-- タスクリストに戻るボタン -->
+<a href="{% url 'task_list' %}" class="btn">タスクリストに戻る</a>
+
+{% endblock %}

@@ -12,12 +12,14 @@
             margin: 0;
             padding: 0;
         }
+
         header {
             background: #007bff;
             color: #ffffff;
             padding: 20px;
             text-align: center;
         }
+
         .container {
             max-width: 600px;
             margin: 20px auto;
@@ -26,40 +28,51 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             margin: 0;
             font-size: 24px;
         }
+
         ul {
             list-style-type: none;
             padding: 0;
         }
+
         li {
             padding: 10px;
             border-bottom: 1px solid #dddddd;
+            display: flex;
+            justify-content: space-between;
         }
+
         li:last-child {
             border-bottom: none;
         }
+
         .add-task {
             margin-top: 20px;
         }
-        .add-task input {
+
+        .add-task input, .add-task select {
             padding: 10px;
             width: 80%;
             border: 1px solid #cccccc;
             border-radius: 4px;
+            margin-bottom: 10px;
         }
+
         .add-task button {
             padding: 10px;
-            background-color: #28a745;
+            background-color: #007bff;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
+
         .add-task button:hover {
-            background-color: #218838;
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -67,51 +80,34 @@
     <header>
         <h1>To-Do List</h1>
     </header>
+
     <div class="container">
         <h2>My Tasks</h2>
         <ul id="task-list">
-            <!-- タスクリストがここに表示される予定 -->
-            <li>タスク1 <button class="delete">削除</button></li>
-            <li>タスク2 <button class="delete">削除</button></li>
-            <li>タスク3 <button class="delete">削除</button></li>
+            <!-- タスクリストがここに表示される -->
+            {% for task in tasks %}
+            <li>
+                {{ task.title }} - 優先度: {{ task.get_priority_display }} 
+                <div>
+                    <a href="{% url 'task_edit' task.id %}">編集</a>
+                    <a href="{% url 'task_delete' task.id %}">削除</a>
+                </div>
+            </li>
+            {% endfor %}
         </ul>
+
         <div class="add-task">
-            <input type="text" id="task-input" placeholder="新しいタスクを追加">
-            <button id="add-task-button">追加</button>
+            <form method="POST" action="{% url 'add_task' %}">
+                {% csrf_token %}
+                <input type="text" name="title" placeholder="新しいタスクを入力" required>
+                <select name="priority">
+                    <option value="1">Low</option>
+                    <option value="2">Medium</option>
+                    <option value="3">High</option>
+                </select>
+                <button type="submit">追加</button>
+            </form>
         </div>
     </div>
-    <script>
-        // タスク追加機能のJavaScriptコード（例）
-        document.getElementById('add-task-button').addEventListener('click', function() {
-            const taskInput = document.getElementById('task-input');
-            const taskText = taskInput.value.trim();
-            if (taskText) {
-                const li = document.createElement('li');
-                li.textContent = taskText;
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = '削除';
-                deleteButton.classList.add('delete');
-                deleteButton.addEventListener('click', function() {
-                    li.remove();
-                });
-                li.appendChild(deleteButton);
-                document.getElementById('task-list').appendChild(li);
-                taskInput.value = '';
-            }
-        });
-    </script>
 </body>
 </html>
-
-<h1>My Tasks</h1>
-<ul>
-    {% for task in tasks %}
-        <li>{{ task.description }} <a href="{% url 'delete_task' task.id %}">削除</a></li>
-    {% endfor %}
-</ul>
-
-<form method="POST" action="{% url 'add_task' %}">
-    {% csrf_token %}
-    <input type="text" name="description" placeholder="新しいタスクを入力" required>
-    <button type="submit">追加</button>
-</form>

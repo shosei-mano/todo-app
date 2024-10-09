@@ -1,0 +1,24 @@
+{% extends 'todoapp/base2.html' %}
+
+{% block title %}
+    タスク検索結果
+{% endblock %}
+
+{% block content %}
+    <h1>検索結果</h1>
+
+    <form method="GET" action="{% url 'task_search' %}">
+        <input type="text" name="q" value="{{ query }}" placeholder="タスクを検索">
+        <button type="submit">検索</button>
+    </form>
+
+    {% if search_results %}
+        <ul>
+            {% for task in search_results %}
+                <li>{{ task.title }} - 優先度: {{ task.get_priority_display }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>該当するタスクが見つかりません。</p>
+    {% endif %}
+{% endblock %}

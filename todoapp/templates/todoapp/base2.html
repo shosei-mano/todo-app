@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}To-Do List{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'your_css_file.css' %}">  <!-- CSSファイルへのリンク -->
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'index' %}">ホーム</a></li>
+            <li><a href="{% url 'task_list' %}">タスクリスト</a></li>
+            <li><a href="{% url 'task_search' %}">検索</a></li>
+            <li><a href="{% url 'profile' %}">プロフィール</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

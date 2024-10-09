@@ -1,0 +1,27 @@
+<!-- task_list.html -->
+<form method="get" action="{% url 'task_search' %}">
+    <input type="text" name="q" placeholder="タスクを検索" value="{{ query }}">
+    <button type="submit">検索</button>
+</form>
+
+<a href="{% url 'task_list' %}">タスクリストに戻る</a>
+
+{% if query %}
+    <h2>検索結果</h2>
+    <ul>
+        {% for task in search_results %}
+            <li>{{ task.title }}</li>
+        {% empty %}
+            <li>検索結果がありません。</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h2>タスクリスト</h2>
+    <ul>
+        {% for task in task_list %}
+            <li>{{ task.title }}</li>
+        {% empty %}
+            <li>タスクがありません。</li>
+        {% endfor %}
+    </ul>
+{% endif %}

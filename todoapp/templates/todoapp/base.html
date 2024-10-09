@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}To-Do アプリ{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">ホーム</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">ログアウト</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">ログイン</a></li>
+                <li><a href="{% url 'register' %}">登録</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="content">
+        {% block content %}
+        <!-- 各ページの内容がここに入ります -->
+        {% endblock %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+/* your_css_file.css */
+nav {
+    background-color: #333;  /* ナビゲーションバーの背景色 */
+}
+
+nav ul {
+    list-style-type: none;    /* リストのスタイルを無効にする */
+    padding: 0;               /* パディングを0にする */
+}
+
+nav ul li {
+    display: inline;          /* リスト項目を横並びにする */
+    margin-right: 15px;      /* 右側にマージンを追加 */
+}
+
+nav ul li a {
+    color: white;             /* リンクの色 */
+    text-decoration: none;    /* 下線を削除 */
+}
+
+nav ul li a:hover {
+    text-decoration: underline;  /* ホバー時に下線を表示 */
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
